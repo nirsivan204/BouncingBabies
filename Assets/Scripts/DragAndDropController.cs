@@ -32,10 +32,6 @@ public class DragAndDropController : MonoBehaviour
         clickAction.Disable();
         holdAction.Disable();
     }
-    public void Update()
-    {
-        Debug.Log(clickAction.ReadValue<Vector2>());
-    }
 
     public void OnClick(InputAction.CallbackContext context)
     {
