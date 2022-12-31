@@ -11,7 +11,7 @@ public abstract class AbstractCollector : MonoBehaviour
 
     public void Start()
     {
-        _pool = FindObjectOfType<ObjectPool>()._babyPool;
+        _pool = PoolManager._babyPool;
     }
 
     public void Init(IObjectPool<GameObject> pool)

@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] LivesUIManager _livesUI;
     [SerializeField] TMP_Text _levelText;
     [SerializeField] TMP_Text _savedBabiesText;
+    [SerializeField] TMP_Text _TargetBabiesText;
 
     [SerializeField] Ambulance _ambulance;
     [SerializeField] Floor _floor;
@@ -27,11 +28,12 @@ public class UIManager : MonoBehaviour
 
     }
 
-    public void Init()
+    public void Start()
     {
         _savedBabies = 0;
         UpdateSavedBabiesText();
-        SetLevelText(GameData.CurrentLevel);
+        UpdateTargetBabiesText();
+        SetLevelText(GameData.CurrentLevel+1); // zero based levels
     }
 
 
@@ -54,6 +56,10 @@ public class UIManager : MonoBehaviour
     void UpdateSavedBabiesText()
     {
         _savedBabiesText.text = _savedBabies.ToString();
+    }
+    void UpdateTargetBabiesText()
+    {
+        _TargetBabiesText.text = LevelManager.GetLevel().targetSaves.ToString();
     }
 
 

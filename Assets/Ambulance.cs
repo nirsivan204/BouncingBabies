@@ -6,8 +6,6 @@ using UnityEngine.Pool;
 
 public class Ambulance : AbstractCollector
 {
-    public static Action nir;
-
     protected override void BabyCollectedAffect()
     {
     }

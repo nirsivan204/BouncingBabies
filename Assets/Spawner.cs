@@ -32,10 +32,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] Window[] windows;
     protected IObjectPool<GameObject> _pool;
     private int _activeWindows;
+    private Coroutine _spawnCoroutine;
 
     public void Init(int activeWindows, float minBabiesPerSecond, float maxBabiesPerSecond)
     {
-        _pool = FindObjectOfType<ObjectPool>()._babyPool;
+        _pool = PoolManager._babyPool;
         _activeWindows = activeWindows;
         for (int i = 0; i < activeWindows; i++)
         {
@@ -52,16 +53,15 @@ public class Spawner : MonoBehaviour
         baby.GetComponent<Rigidbody2D>().AddForce(Vector2.right * windows[windowID].throwForce, ForceMode2D.Impulse);
     }
 
-    private void Start()
+    public void StartSpawn()
     {
-        Init(2, 0.2f, 0.3f);
-        StartSpawn();
+        _spawnCoroutine = StartCoroutine(SpawnCoroutine());
+
     }
 
-    private void StartSpawn()
+    public void StopSpawn()
     {
-        StartCoroutine(SpawnCoroutine());
-
+        StopCoroutine(_spawnCoroutine);
     }
 
     private IEnumerator SpawnCoroutine()

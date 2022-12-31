@@ -4,8 +4,17 @@ using UnityEngine;
 
 public static class GameData
 {
-    public static int MaxLevelRecord { get; set; }
-    public static int CurrentLevel { get; set; } = 1;
+    public static int MaxLevelRecord {
+        get
+        {
+           return PlayerPrefs.GetInt("MaxLevelRecord");
+        }
+        set 
+        {
+            PlayerPrefs.SetInt("MaxLevelRecord",value);
+        }
+    }
+    public static int CurrentLevel { get; set; } = 0; // Zero Based
 
     public static void SavePlayerMusicPrefs(float musicVol, float sfxVol)
     {

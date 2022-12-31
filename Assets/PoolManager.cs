@@ -2,14 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
+//using UnityEngine.Pool;
 
-public class ObjectPool : MonoBehaviour
+public class PoolManager : MonoBehaviour
 {
     //[SerializeField] private BabyScript _baby;
     [SerializeField] GameObject _baby;
 
     //private IObjectPool<BabyScript> _babyPool;
-    public IObjectPool<GameObject> _babyPool;
+    public static IObjectPool<GameObject> _babyPool;
+
 
 
     private void Awake()
