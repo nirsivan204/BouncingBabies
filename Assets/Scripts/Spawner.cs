@@ -1,7 +1,5 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 using Random = UnityEngine.Random;
@@ -74,13 +72,4 @@ public class Spawner : MonoBehaviour
             ThrowBaby(randomWindow);
         }
     }
-
-    int i = 0;
-/*    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            ThrowBaby(i++%3);
-        }
-    }*/
 }

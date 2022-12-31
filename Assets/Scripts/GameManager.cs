@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
     private void GameOver()
     {
         EndLevel();
-        Debug.Log("gameOver");
+        SceneManager.LoadScene(0);
     }
 
     private void OnBabySaved()
@@ -107,6 +107,6 @@ public class GameManager : MonoBehaviour
         {
             GameData.MaxLevelRecord = GameData.CurrentLevel;
         }
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }
