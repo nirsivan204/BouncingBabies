@@ -3,17 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Floor : MonoBehaviour
+public class Floor : AbstractCollector
 {
-    IObjectPool<GameObject> pool;
-
-    public void Start()
+    protected override void BabyCollectedAffect()
     {
-        pool = FindObjectOfType<ObjectPool>()._babyPool;
-    }
-
-    public void OnTriggerEnter2D(Collider2D collision)
-    {
-        pool.Release(collision.gameObject);
     }
 }
