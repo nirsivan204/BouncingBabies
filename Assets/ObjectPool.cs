@@ -32,7 +32,6 @@ public class ObjectPool : MonoBehaviour
     private void OnGetBaby(GameObject baby)
     {
         baby.SetActive(true);
-        baby.transform.position = transform.position;
     }
 
     private void OnReleaseBaby(GameObject baby)
@@ -64,11 +63,5 @@ public class ObjectPool : MonoBehaviour
         Destroy(baby.gameObject);
     }*/
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            _babyPool?.Get();
-        }
-    }
+
 }
