@@ -7,5 +7,6 @@ public class Floor : AbstractCollector
 {
     protected override void BabyCollectedAffect()
     {
+        base.BabyCollectedAffect();
     }
 }

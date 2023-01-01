@@ -4,9 +4,11 @@ using System;
 
 public abstract class AbstractCollector : MonoBehaviour
 {
+    [SerializeField] protected SoundType _collectSound;
 
     protected IObjectPool<GameObject> _pool;
     protected Action _babyCollectedEvent;
+    
     public Action BabyCollectedEvent { get => _babyCollectedEvent; set { _babyCollectedEvent = value; } }
 
     public void Start()
@@ -29,6 +31,9 @@ public abstract class AbstractCollector : MonoBehaviour
         }
     }
 
-    protected abstract void BabyCollectedAffect();
+    protected virtual void BabyCollectedAffect()
+    {
+        AudioManager.Instance.PlaySound(_collectSound);
+    }
 
 }

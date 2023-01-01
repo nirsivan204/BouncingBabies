@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 20234236}
   - component: {fileID: 20234235}
   - component: {fileID: 20234237}
+  - component: {fileID: 20234238}
   m_Layer: 0
   m_Name: trampoline
   m_TagString: Untagged
@@ -224,6 +225,18 @@ CapsuleCollider2D:
   m_Offset: {x: 0, y: 0.65}
   m_Size: {x: 4, y: 0.1}
   m_Direction: 1
+--- !u!114 &20234238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 20234234}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d53e541ca11f1554b93bb6cdf3402f59, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &37377767
 GameObject:
   m_ObjectHideFlags: 0
@@ -677,6 +690,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41236b76104981b4b8ff257c12973057, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collectSound: 4
 --- !u!1 &281995608
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1216,7 @@ Camera:
   far clip plane: 1000
   field of view: 51
   orthographic: 1
-  orthographic size: 4.6216216
+  orthographic size: 4.2749996
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3089,6 +3103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce93d8999c71d084090d457fbcf5bc2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _collectSound: 2
 --- !u!61 &1699518605
 BoxCollider2D:
   m_ObjectHideFlags: 0

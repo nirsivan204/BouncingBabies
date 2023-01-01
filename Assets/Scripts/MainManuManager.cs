@@ -10,14 +10,21 @@ public class MainManuManager : MonoBehaviour
     [SerializeField] GameObject _statsManu;
 
 
+    private void Start()
+    {
+        AudioManager.Instance.PlaySound(SoundType.BG_Music,true);
+    }
+
     public void OnSettingsPressed()
     {
+        AudioManager.Instance.PlaySound(SoundType.Click);
         _settingsManu.SetActive(true);
         _mainManu.SetActive(false);
     }
 
     public void OnBackPressed()
     {
+        AudioManager.Instance.PlaySound(SoundType.Click);
         _settingsManu.SetActive(false);
         _mainManu.SetActive(true);
         _statsManu.SetActive(false);
@@ -26,6 +33,7 @@ public class MainManuManager : MonoBehaviour
 
     public void OnStatsPressed()
     {
+        AudioManager.Instance.PlaySound(SoundType.Click);
         _statsManu.SetActive(true);
         _mainManu.SetActive(false);
 
@@ -33,6 +41,7 @@ public class MainManuManager : MonoBehaviour
 
     public void OnContinuePressed()
     {
+        AudioManager.Instance.PlaySound(SoundType.Click);
         GameData.CurrentLevel = GameData.MaxLevelRecord;
         StartGame();
 
@@ -40,6 +49,7 @@ public class MainManuManager : MonoBehaviour
 
     public void OnStartPressed()
     {
+        AudioManager.Instance.PlaySound(SoundType.Click);
         GameData.CurrentLevel = 0;
         StartGame();
     }

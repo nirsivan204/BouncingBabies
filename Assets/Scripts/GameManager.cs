@@ -58,6 +58,7 @@ public class GameManager : MonoBehaviour
 
     private void GameOver()
     {
+        AudioManager.Instance.PlaySound(SoundType.Lose);
         EndLevel();
         SceneManager.LoadScene(0);
     }
@@ -73,6 +74,7 @@ public class GameManager : MonoBehaviour
 
     private void LevelAccomplished()
     {
+        AudioManager.Instance.PlaySound(SoundType.Win);
         StartNextLevel();
     }
 
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour
         _lives = MAX_LIVES;
         _targetSaves = level.targetSaves;
         _babiesSaved = 0;
+        AudioManager.Instance.PlaySound(SoundType.LevelStart);
         _spawner.Init(level.numOfWindows, level.minBabiesPerSecond, level.maxBabiesPerSecond);
         _spawner.StartSpawn();
     }
