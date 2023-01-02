@@ -39,7 +39,9 @@ public class BabiesSpawner : AbstractSpawner<BabyScript>
     {
         BabyScript baby = _poolManager.Pool?.Get();
         baby.transform.position = windows[windowID].transform.position;
-        baby.GetComponent<Rigidbody2D>().AddForce(Vector2.right * windows[windowID].throwForce, ForceMode2D.Impulse);
+        Rigidbody2D rb = baby.GetComponent<Rigidbody2D>();
+        rb.AddForce(Vector2.right * windows[windowID].throwForce, ForceMode2D.Impulse);
+        rb.AddTorque(Random.value);
     }
 
 
