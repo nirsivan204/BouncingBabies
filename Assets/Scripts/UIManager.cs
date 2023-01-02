@@ -76,22 +76,25 @@ public class UIManager : MonoBehaviour
         _TargetBabiesText.text = LevelManager.GetLevel().targetSaves.ToString();
     }
 
-    private void ShowGameMsg(LevelResult result)
+    private async void ShowGameMsg(LevelResult result)
     {
         if (result == LevelResult.Win)
         {
-            AnimateGameMsg("You Win");
+            await AnimateGameMsg("You Win");
         }
         else
         {
-            AnimateGameMsg("You Lose");
+            await AnimateGameMsg("You Lose");
         }
     }
 
-    private void AnimateGameMsg(string msg)
+    private async Task AnimateGameMsg(string msg)
     {
         _gameMsgText.text = msg;
         _gameMsgText.gameObject.SetActive(true);
+        await Task.Delay((int)_msgAnimDuration * 1000);
+        _gameMsgText.gameObject.SetActive(false);
+
     }
 
     private void OnLevelEnd(LevelResult result)
