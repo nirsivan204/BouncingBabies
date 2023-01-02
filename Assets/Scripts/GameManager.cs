@@ -46,11 +46,8 @@ public class GameManager : MonoBehaviour
 
     private void OnBabyLost()
     {
-        if (_lives > 0)
-        {
-            _lives--;
-        }
-        else
+        _lives--;
+        if (_lives < 0)
         {
             GameOver();
         }
@@ -75,6 +72,7 @@ public class GameManager : MonoBehaviour
     private void LevelAccomplished()
     {
         AudioManager.Instance.PlaySound(SoundType.Win);
+        EndLevel();
         StartNextLevel();
     }
 
@@ -97,6 +95,8 @@ public class GameManager : MonoBehaviour
     private void EndLevel()
     {
         _spawner.StopSpawn();
+        GameData.TotalBabiesLost += MAX_LIVES - _lives;
+        GameData.TotalBabiesSaved += _babiesSaved;
     }
     public void OnStart()
     {

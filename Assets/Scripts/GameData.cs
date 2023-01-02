@@ -11,16 +11,41 @@ public enum Scenes
 }
 public static class GameData
 {
-    public static int MaxLevelRecord {
+    public static int MaxLevelRecord 
+    {
         get
         {
-           return PlayerPrefs.GetInt("MaxLevelRecord");
+           return PlayerPrefs.GetInt("MaxLevelRecord",0);
         }
         set 
         {
             PlayerPrefs.SetInt("MaxLevelRecord",value);
         }
     }
+
+    public static int TotalBabiesSaved
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("TotalBabiesSaved",0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("TotalBabiesSaved", value);
+        }
+    }
+    public static int TotalBabiesLost
+    {
+        get
+        {
+            return PlayerPrefs.GetInt("TotalBabiesLost",0);
+        }
+        set
+        {
+            PlayerPrefs.SetInt("TotalBabiesLost", value);
+        }
+    }
+
     public static int CurrentLevel { get; set; } = 0; // Zero Based
 
     public static void SavePlayerMusicPrefs(float musicVol, float sfxVol)

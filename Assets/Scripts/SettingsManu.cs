@@ -19,11 +19,13 @@ public class SettingsManu : MonoBehaviour
     public void OnMusicVolChange(float val)
     {
         _musicVol = val;
+        AudioManager.Instance.SetMusicVol(_musicVol);
     }
 
     public void OnSFXVolChange(float val)
     {
         _sfxVol = val;
+        AudioManager.Instance.SetSFXVol(_sfxVol);
     }
 
     public void OnDisable()
