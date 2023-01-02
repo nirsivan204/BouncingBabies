@@ -54,10 +54,9 @@ public class MainManuManager : MonoBehaviour
         StartGame();
     }
 
-    public void StartGame()
+    private void StartGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene((int)Scenes.GameScene);
 
     }
-
 }

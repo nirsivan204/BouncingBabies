@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         AudioManager.Instance.PlaySound(SoundType.Lose);
         EndLevel();
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene((int)Scenes.MainManuScene);
     }
 
     private void OnBabySaved()
@@ -110,6 +110,6 @@ public class GameManager : MonoBehaviour
         {
             GameData.MaxLevelRecord = GameData.CurrentLevel;
         }
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene((int)Scenes.GameScene);
     }
 }
