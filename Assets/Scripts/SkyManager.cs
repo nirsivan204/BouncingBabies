@@ -12,11 +12,16 @@ public class SkyManager : AbstractSpawner<Cloud>
     [SerializeField] GameObject[] skies;
     WaitForSeconds cachedWait = new WaitForSeconds(3);
 
-    private void Awake()
+    private void OnEnable()
     {
         Init();
         Instantiate(skies[Random.Range(0, skies.Length)]);
-        StartCoroutine(SpawnCoroutine());
+        StartSpawn();
+    }
+
+    private void OnDisable()
+    {
+        StopSpawn();
     }
 
     protected override IEnumerator SpawnCoroutine()

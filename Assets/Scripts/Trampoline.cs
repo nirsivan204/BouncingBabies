@@ -6,10 +6,6 @@ public class Trampoline : MonoBehaviour
 {
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.tag == "Baby")
-        {
-            AudioManager.Instance.PlaySound(SoundType.BabyJump);
-
-        }
+        AudioManager.Instance.PlaySound(SoundType.BabyJump);
     }
 }

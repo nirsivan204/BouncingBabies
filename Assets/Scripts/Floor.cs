@@ -5,8 +5,4 @@ using UnityEngine.Pool;
 
 public class Floor : BabyCollector
 {
-    protected override void BabyCollectedAffect()
-    {
-        base.BabyCollectedAffect();
-    }
 }

@@ -19,14 +19,14 @@ public class DragAndDropController : MonoBehaviour
         mainCamera = Camera.main;
     }
 
-    public void OnEnable()
+    private void OnEnable()
     {
         clickAction.Enable();
         holdAction.Enable();
         clickAction.performed += OnClick;
     }
 
-    public void OnDisable()
+    private void OnDisable()
     {
         clickAction.performed -= OnClick;
         clickAction.Disable();

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,7 +7,16 @@ using UnityEngine.UI;
 public class LivesUIManager : MonoBehaviour
 {
     [SerializeField] Image[] Lives;
-    int livesLeft = 3;
+    int livesLeft = GameManager.MAX_LIVES;
+
+    private void OnValidate()
+    {
+        if(Lives.Length != GameManager.MAX_LIVES)
+        {
+            throw new Exception("Max lives defined in game manager not equal to number of lives images");
+        }
+    }
+
     public void ReduceLives(int amount)
     {
         for(int i = 0; i<amount; i++)
@@ -17,11 +27,6 @@ public class LivesUIManager : MonoBehaviour
                 livesLeft--;
             }
         }
-    }
-
-    public void ResetLives()
-    {
-        livesLeft = 3;
     }
 
     private void RemoveLiveIcon()

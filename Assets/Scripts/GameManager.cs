@@ -1,24 +1,27 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using Unity.VisualScripting;
 using UnityEngine;
 
+#region Enums
 public enum LevelResult
 {
     Win,
     Lose,
 }
+#endregion
 
 public class GameManager : MonoBehaviour
 {
-    public static Action<LevelResult> LevelEndEvent;
+    #region StaticMembersAndConsts
 
-    private const int MAX_LIVES = 3;
-    public static GameManager Instance { get; private set; }
-    public Floor Floor { get => _floor; set => _floor = value; }
-    public Ambulance Ambulance { get => _ambulance; set => _ambulance = value; }
+    public static Action<LevelResult> LevelEndEvent;
+    
+    public const int MAX_LIVES = 3;
+
+    #endregion
+
+    #region PrivateParams
 
     [SerializeField] BabiesSpawner _spawner;
     [SerializeField] Ambulance _ambulance;
@@ -29,17 +32,12 @@ public class GameManager : MonoBehaviour
     private int _babiesSaved;
     private bool _isGameEnded = false;
 
+    #endregion
+
+    #region UnityLifeCycleFuncs
     private void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(this);
-        }
-        else
-        {
-            Instance = this;
-            LevelManager.InitLevel();
-        }
+        LevelManager.InitLevel();
     }
 
     public void Start()
@@ -52,53 +50,15 @@ public class GameManager : MonoBehaviour
         _ambulance.BabyCollectedEvent += OnBabySaved;
         _floor.BabyCollectedEvent += OnBabyLost;
     }
-
-    private void OnBabyLost()
-    {
-        if (_isGameEnded)
-        {
-            return;
-        }
-        _lives--;
-        if (_lives < 0)
-        {
-            GameOver();
-        }
-    }
-
-    private void GameOver()
-    {
-        AudioManager.Instance.PlaySound(SoundType.Lose);
-        LevelEndEvent(LevelResult.Lose);
-        EndLevel();
-    }
-
-    private void OnBabySaved()
-    {
-        if (_isGameEnded)
-        {
-            return;
-        }
-        _babiesSaved++;
-        if(_babiesSaved == _targetSaves)
-        {
-            LevelAccomplished();
-        }
-    }
-
-    private void LevelAccomplished()
-    {
-        AudioManager.Instance.PlaySound(SoundType.Win);
-        LevelEndEvent(LevelResult.Win);
-        UpdateLevelRecord();
-        EndLevel();
-    }
-
     private void OnDisable()
     {
         _ambulance.BabyCollectedEvent -= OnBabySaved;
         _floor.BabyCollectedEvent -= OnBabyLost;
     }
+
+    #endregion
+
+    #region LevelHandling
     public void StartLevel()
     {
         Level level = LevelManager.GetLevel();
@@ -117,8 +77,55 @@ public class GameManager : MonoBehaviour
         GameData.TotalBabiesLost += MAX_LIVES - _lives;
         GameData.TotalBabiesSaved += _babiesSaved;
     }
+    #endregion
 
-    public void UpdateLevelRecord()
+    #region CollectorsEventsHandlers
+
+    private void OnBabySaved()
+    {
+        if (_isGameEnded)
+        {
+            return;
+        }
+        _babiesSaved++;
+        if (_babiesSaved == _targetSaves)
+        {
+            LevelAccomplished();
+        }
+    }
+
+    private void OnBabyLost()
+    {
+        if (_isGameEnded)
+        {
+            return;
+        }
+        _lives--;
+        if (_lives < 0)
+        {
+            GameOver();
+        }
+    }
+
+    #endregion
+
+    #region WinLoseHandlers
+    private void GameOver()
+    {
+        AudioManager.Instance.PlaySound(SoundType.Lose);
+        LevelEndEvent(LevelResult.Lose);
+        EndLevel();
+    }
+
+    private void LevelAccomplished()
+    {
+        AudioManager.Instance.PlaySound(SoundType.Win);
+        LevelEndEvent(LevelResult.Win);
+        UpdateLevelRecord();
+        EndLevel();
+    }
+
+    private void UpdateLevelRecord()
     {
         GameData.CurrentLevel++;
         if (GameData.MaxLevelRecord < GameData.CurrentLevel)
@@ -126,6 +133,9 @@ public class GameManager : MonoBehaviour
             GameData.MaxLevelRecord = GameData.CurrentLevel;
         }
     }
+    #endregion
 
-    
+
+
+
 }

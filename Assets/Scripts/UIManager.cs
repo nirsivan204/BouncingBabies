@@ -9,6 +9,7 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
+    #region PrivateParams
     [SerializeField] LivesUIManager _livesUI;
     [SerializeField] TMP_Text _levelText;
     [SerializeField] TMP_Text _savedBabiesText;
@@ -17,13 +18,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] Text _continueButtonText;
     [SerializeField] float _msgAnimDuration;
     [SerializeField] GameObject _EndLevelManu;
-
-
-
     [SerializeField] Ambulance _ambulance;
     [SerializeField] Floor _floor;
     int _savedBabies = 0;
+    #endregion
 
+    #region UnityLifeCycleFuncs
     private void OnEnable()
     {
         _ambulance.BabyCollectedEvent += OnCollect;
@@ -39,23 +39,17 @@ public class UIManager : MonoBehaviour
         GameManager.LevelEndEvent -= OnLevelEnd;
     }
 
-
-
     public void Start()
     {
         _savedBabies = 0;
         UpdateSavedBabiesText();
         UpdateTargetBabiesText();
-        SetLevelText(GameData.CurrentLevel+1); // zero based levels
+        SetLevelText(GameData.CurrentLevel + 1); // zero based levels
         AnimateGameMsg($"Level {GameData.CurrentLevel + 1}");
     }
+    #endregion
 
-
-    private void SetLevelText(int level)
-    {
-        _levelText.text = level.ToString();
-    }
-
+    #region GameEventsHandlers
     private void OnReduceLives()
     {
         _livesUI.ReduceLives(1);
@@ -63,8 +57,23 @@ public class UIManager : MonoBehaviour
 
     private void OnCollect()
     {
-        _savedBabies += 1;
+        _savedBabies++;
         UpdateSavedBabiesText();
+    }
+
+    private void OnLevelEnd(LevelResult result)
+    {
+        ShowGameMsg(result);
+        _EndLevelManu.SetActive(true);
+        _continueButtonText.text = result == LevelResult.Win ? "Next Level" : "Retry";
+
+    }
+    #endregion
+
+    #region TextAndMsgHandling
+    private void SetLevelText(int level)
+    {
+        _levelText.text = level.ToString();
     }
 
     void UpdateSavedBabiesText()
@@ -96,15 +105,9 @@ public class UIManager : MonoBehaviour
         _gameMsgText.gameObject.SetActive(false);
 
     }
+    #endregion
 
-    private void OnLevelEnd(LevelResult result)
-    {
-        ShowGameMsg(result);
-        _EndLevelManu.SetActive(true);
-        _continueButtonText.text = result == LevelResult.Win ? "Next Level" : "Retry";
-
-    }
-
+    #region ButtonsCallbacks
     public void OnContinue()
     {
         SceneManager.LoadScene((int)Scenes.GameScene);
@@ -114,4 +117,6 @@ public class UIManager : MonoBehaviour
     {
         SceneManager.LoadScene((int)Scenes.MainManuScene);
     }
+    #endregion
+
 }

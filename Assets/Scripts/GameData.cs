@@ -11,15 +11,27 @@ public enum Scenes
 }
 public static class GameData
 {
+
+    internal class StringsConsts
+    {
+        public static string PPMusicVolName { get; } = "MusicVol";
+        public static string PPSFXVolName { get; } = "SFXVol";
+        public static string PPTotalBabiesLost { get; } = "TotalBabiesLost";
+        public static string PPTotalBabiesSaved { get; } = "TotalBabiesSaved";
+        public static string PPMaxLevelRecord { get; } = "MaxLevelRecord";
+
+    }
+
+
     public static int MaxLevelRecord 
     {
         get
         {
-           return PlayerPrefs.GetInt("MaxLevelRecord",0);
+           return PlayerPrefs.GetInt(StringsConsts.PPMaxLevelRecord,0);
         }
         set 
         {
-            PlayerPrefs.SetInt("MaxLevelRecord",value);
+            PlayerPrefs.SetInt(StringsConsts.PPMaxLevelRecord, value);
         }
     }
 
@@ -27,22 +39,22 @@ public static class GameData
     {
         get
         {
-            return PlayerPrefs.GetInt("TotalBabiesSaved",0);
+            return PlayerPrefs.GetInt(StringsConsts.PPTotalBabiesSaved,0);
         }
         set
         {
-            PlayerPrefs.SetInt("TotalBabiesSaved", value);
+            PlayerPrefs.SetInt(StringsConsts.PPTotalBabiesSaved, value);
         }
     }
     public static int TotalBabiesLost
     {
         get
         {
-            return PlayerPrefs.GetInt("TotalBabiesLost",0);
+            return PlayerPrefs.GetInt(StringsConsts.PPTotalBabiesLost, 0);
         }
         set
         {
-            PlayerPrefs.SetInt("TotalBabiesLost", value);
+            PlayerPrefs.SetInt(StringsConsts.PPTotalBabiesLost, value);
         }
     }
 
