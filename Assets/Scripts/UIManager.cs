@@ -1,7 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -9,6 +13,12 @@ public class UIManager : MonoBehaviour
     [SerializeField] TMP_Text _levelText;
     [SerializeField] TMP_Text _savedBabiesText;
     [SerializeField] TMP_Text _TargetBabiesText;
+    [SerializeField] TMP_Text _gameMsgText;
+    [SerializeField] Text _continueButtonText;
+    [SerializeField] float _msgAnimDuration;
+    [SerializeField] GameObject _EndLevelManu;
+
+
 
     [SerializeField] Ambulance _ambulance;
     [SerializeField] Floor _floor;
@@ -18,6 +28,7 @@ public class UIManager : MonoBehaviour
     {
         _ambulance.BabyCollectedEvent += OnCollect;
         _floor.BabyCollectedEvent += OnReduceLives;
+        GameManager.LevelEndEvent += OnLevelEnd;
     }
 
     private void OnDisable()
@@ -25,8 +36,10 @@ public class UIManager : MonoBehaviour
 
         _ambulance.BabyCollectedEvent -= OnCollect;
         _floor.BabyCollectedEvent -= OnReduceLives;
-
+        GameManager.LevelEndEvent -= OnLevelEnd;
     }
+
+
 
     public void Start()
     {
@@ -34,6 +47,7 @@ public class UIManager : MonoBehaviour
         UpdateSavedBabiesText();
         UpdateTargetBabiesText();
         SetLevelText(GameData.CurrentLevel+1); // zero based levels
+        AnimateGameMsg($"Level {GameData.CurrentLevel + 1}");
     }
 
 
@@ -62,5 +76,39 @@ public class UIManager : MonoBehaviour
         _TargetBabiesText.text = LevelManager.GetLevel().targetSaves.ToString();
     }
 
+    private void ShowGameMsg(LevelResult result)
+    {
+        if (result == LevelResult.Win)
+        {
+            AnimateGameMsg("You Win");
+        }
+        else
+        {
+            AnimateGameMsg("You Lose");
+        }
+    }
 
+    private void AnimateGameMsg(string msg)
+    {
+        _gameMsgText.text = msg;
+        _gameMsgText.gameObject.SetActive(true);
+    }
+
+    private void OnLevelEnd(LevelResult result)
+    {
+        ShowGameMsg(result);
+        _EndLevelManu.SetActive(true);
+        _continueButtonText.text = result == LevelResult.Win ? "Next Level" : "Retry";
+
+    }
+
+    public void OnContinue()
+    {
+        SceneManager.LoadScene((int)Scenes.GameScene);
+    }
+
+    public void OnBackToMainManu()
+    {
+        SceneManager.LoadScene((int)Scenes.MainManuScene);
+    }
 }

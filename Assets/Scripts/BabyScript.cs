@@ -3,19 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class BabyScript:MonoBehaviour
+public class BabyScript : MonoBehaviour
 {
-    private IObjectPool<BabyScript> m_pool;
+    private IObjectPool<BabyScript> _pool;
 
     public void SetPool(IObjectPool<BabyScript> pool)
     {
-        m_pool = pool;
+        _pool = pool;
     }
 
-
-    private void OnCollect()
+    public IObjectPool<BabyScript> GetPool()
     {
-        m_pool?.Release(this);
+        return _pool;
     }
+
+    
 
 }

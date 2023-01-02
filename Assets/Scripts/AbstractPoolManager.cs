@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public abstract class AbstractPool<T> : MonoBehaviour where T : UnityEngine.Object
+public abstract class AbstractPoolManager<T> : MonoBehaviour where T : UnityEngine.Object
 {
     protected ObjectPool<T> _pool;
     [SerializeField] protected T _originalObj;

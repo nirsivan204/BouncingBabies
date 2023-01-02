@@ -4,14 +4,7 @@ using UnityEngine;
 using UnityEngine.Pool;
 using Random = UnityEngine.Random;
 
-public enum ActiveWindows
-{
-    First = 1,
-    Second = 2,
-    Third = 4,
-}
-
-public class Spawner : MonoBehaviour
+public class BabiesSpawner : AbstractSpawner<BabyScript>
 {
     [Serializable]
     private struct Window
@@ -28,13 +21,11 @@ public class Spawner : MonoBehaviour
     WaitForSeconds[] cachedAwaits = new WaitForSeconds[2]; 
 
     [SerializeField] Window[] windows;
-    protected IObjectPool<GameObject> _pool;
     private int _activeWindows;
-    private Coroutine _spawnCoroutine;
 
     public void Init(int activeWindows, float minBabiesPerSecond, float maxBabiesPerSecond)
     {
-        _pool = PoolManager._babyPool;
+        base.Init();
         _activeWindows = activeWindows;
         for (int i = 0; i < activeWindows; i++)
         {
@@ -46,23 +37,13 @@ public class Spawner : MonoBehaviour
 
     private void ThrowBaby(int windowID)
     {
-        GameObject baby = _pool?.Get();
+        BabyScript baby = _poolManager.Pool?.Get();
         baby.transform.position = windows[windowID].transform.position;
         baby.GetComponent<Rigidbody2D>().AddForce(Vector2.right * windows[windowID].throwForce, ForceMode2D.Impulse);
     }
 
-    public void StartSpawn()
-    {
-        _spawnCoroutine = StartCoroutine(SpawnCoroutine());
 
-    }
-
-    public void StopSpawn()
-    {
-        StopCoroutine(_spawnCoroutine);
-    }
-
-    private IEnumerator SpawnCoroutine()
+    protected override IEnumerator SpawnCoroutine()
     {
         while (true)
         {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Pool;
 
-public class Floor : AbstractCollector
+public class Floor : BabyCollector
 {
     protected override void BabyCollectedAffect()
     {

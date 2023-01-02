@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CloudPool : AbstractPool<Cloud>
+public class CloudPoolManager : AbstractPoolManager<Cloud>
 {
     [SerializeField] Sprite[] _cloudSprites;
     [SerializeField] Transform[] _cloudSpawnPositions;

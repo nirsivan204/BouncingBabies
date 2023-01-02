@@ -2,32 +2,22 @@
 using UnityEngine;
 using System;
 
-public abstract class AbstractCollector : MonoBehaviour
+public abstract class BabyCollector : MonoBehaviour
 {
     [SerializeField] protected SoundType _collectSound;
 
-    protected IObjectPool<GameObject> _pool;
     protected Action _babyCollectedEvent;
     
     public Action BabyCollectedEvent { get => _babyCollectedEvent; set { _babyCollectedEvent = value; } }
 
-    public void Start()
-    {
-        _pool = PoolManager._babyPool;
-    }
-
-    public void Init(IObjectPool<GameObject> pool)
-    {
-        _pool = pool;
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Baby")
+        BabyScript collectedBaby = collision.GetComponent<BabyScript>();
+        if (collectedBaby != null)
         {
-            _pool.Release(collision.gameObject);
-            _babyCollectedEvent?.Invoke();
+            collectedBaby.GetPool().Release(collectedBaby);
             BabyCollectedAffect();
+            _babyCollectedEvent?.Invoke();
         }
     }
 
