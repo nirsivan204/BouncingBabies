@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Controls;
 using TouchPhase = UnityEngine.InputSystem.TouchPhase;
+
 
 public class DragAndDropController : MonoBehaviour
 {
@@ -26,6 +24,14 @@ public class DragAndDropController : MonoBehaviour
         clickAction.Enable();
         holdAction.Enable();
         clickAction.performed += OnClick;
+        GameManager.LevelEndEvent += OnLevelEnded;
+
+    }
+
+    private void OnLevelEnded(LevelResult level)
+    {
+        clickAction.Disable();
+        holdAction.Disable();
     }
 
     private void OnDisable()
@@ -33,6 +39,8 @@ public class DragAndDropController : MonoBehaviour
         clickAction.performed -= OnClick;
         clickAction.Disable();
         holdAction.Disable();
+        GameManager.LevelEndEvent -= OnLevelEnded;
+
     }
 
     public void OnClick(InputAction.CallbackContext context)

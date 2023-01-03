@@ -10,16 +10,27 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {
     #region PrivateParams
-    [SerializeField] LivesUIManager _livesUI;
+    [Header("Text References")]
     [SerializeField] TMP_Text _levelText;
     [SerializeField] TMP_Text _savedBabiesText;
     [SerializeField] TMP_Text _TargetBabiesText;
     [SerializeField] TMP_Text _gameMsgText;
+    [Header("Buttons")]
     [SerializeField] Text _continueButtonText;
-    [SerializeField] float _msgAnimDuration;
+
+    [Header("Player Stats")]
+    [SerializeField] LivesUIManager _livesUI;
+
+    [Header("Manus")]
     [SerializeField] GameObject _EndLevelManu;
+
+    [Header("Collectors References")]
     [SerializeField] Ambulance _ambulance;
     [SerializeField] Floor _floor;
+
+    [Header("Parameters")]
+    [SerializeField] float _msgAnimDuration;
+
     int _savedBabies = 0;
     #endregion
 
