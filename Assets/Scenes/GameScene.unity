@@ -1874,6 +1874,14 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Click
       m_Flags: 0
+    - m_Name: 
+      m_Id: d50b6138-3533-42f0-aa15-a6609a5d3507
+      m_Path: <Mouse>/position
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Click
+      m_Flags: 0
     m_Flags: 0
   holdAction:
     m_Name: Hold
@@ -1891,8 +1899,18 @@ MonoBehaviour:
       m_Groups: 
       m_Action: Hold
       m_Flags: 0
+    - m_Name: 
+      m_Id: c6186298-f78b-4639-b8d5-3bced537fd57
+      m_Path: <Mouse>/leftButton
+      m_Interactions: 
+      m_Processors: 
+      m_Groups: 
+      m_Action: Hold
+      m_Flags: 0
     m_Flags: 0
   drag: 0.1
+  LeftBorder: -4.7
+  RightBoarder: 6
 --- !u!4 &540514039
 Transform:
   m_ObjectHideFlags: 0

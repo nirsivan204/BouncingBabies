@@ -12,6 +12,8 @@ public class DragAndDropController : MonoBehaviour
     [SerializeField] InputAction clickAction;
     [SerializeField] InputAction holdAction;
     [SerializeField] float drag = 0.1f;
+    [SerializeField] float LeftBorder;
+    [SerializeField] float RightBoarder;
     private Camera mainCamera;
     private Vector2 velocity = Vector2.zero;
     private void Awake()
@@ -45,9 +47,14 @@ public class DragAndDropController : MonoBehaviour
 
     private IEnumerator DragCoroutine(GameObject dragable)
     {
+#if UNITY_ANDROID && !UNITY_EDITOR
         while (holdAction.ReadValue<TouchPhase>() != TouchPhase.Ended)
+#elif UNITY_STANDALONE || UNITY_EDITOR
+        while (holdAction.ReadValue<float>() != 0)
+#endif
         {
             float horizontalPointerPos = mainCamera.ScreenToWorldPoint(clickAction.ReadValue<Vector2>()).x;
+            horizontalPointerPos = Math.Clamp(horizontalPointerPos, LeftBorder, RightBoarder);
             Vector2 currentPos = dragable.transform.position;
             Vector2 targetPos = new Vector2(horizontalPointerPos, currentPos.y);
             dragable.transform.position = Vector2.SmoothDamp(dragable.transform.position, targetPos, ref velocity, drag);
